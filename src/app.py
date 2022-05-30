@@ -1,7 +1,7 @@
 from flask import Flask
 from routes.contacts import contacts
 from flask_sqlalchemy import SQLAlchemy
-
+import mysql.connector
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:asterisk123@127.0.0.1/contactsdb'
