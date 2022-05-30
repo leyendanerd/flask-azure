@@ -8,7 +8,8 @@ contacts = Blueprint('contacts', __name__)
 
 @contacts.route('/')
 def home():
-    return render_template('index.html')
+    contacts = Contact.query.all()
+    return render_template('index.html', contacs=contacts)
 
 
 @contacts.route('/new', methods=['POST'])

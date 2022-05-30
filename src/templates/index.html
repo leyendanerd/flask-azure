@@ -6,5 +6,18 @@
         <input type="text" name="phone" placeholder="Escribe tu telefono">
 
         <button>Save</button>
+        <div>
+            {% for contact in contacts %}
+
+            <div>
+                <h5>{{contact.fullname}}</h5>
+                 <p>{{contact.phone}}</p>
+                 <p>{{contact.email}}</p>
+
+            </div>
+
+
+        </div>
+
     </form>
 </html>
