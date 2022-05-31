@@ -10,6 +10,8 @@ services:
     depends_on:
       mysqldb:
         condition: service_healthy
+        
+        
   mysqldb:
     image: mysql:latest
     ports:
