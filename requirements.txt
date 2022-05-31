@@ -1,2 +1,5 @@
 Flask
+Blueprint
+flask_sqlalchemy
 mysql-connector
+mysqlclient

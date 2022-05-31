@@ -9,7 +9,7 @@ contacts = Blueprint('contacts', __name__)
 @contacts.route('/')
 def home():
     contacts = Contact.query.all()
-    return render_template('index.html', contacs=contacts)
+    return render_template('index.html', contacts=contacts)
 
 
 @contacts.route('/new', methods=['POST'])
