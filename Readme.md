@@ -1,3 +1,3 @@
-<h1>Flask App Deploy Azure AKS  </h1>
+<h1> </h1>
 
 App

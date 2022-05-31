@@ -2,4 +2,5 @@ Flask
 Blueprint
 flask_sqlalchemy
 mysql-connector
+pymysql
 mysqlclient

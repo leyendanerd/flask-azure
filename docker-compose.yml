@@ -1,0 +1,40 @@
+version: "3.9"
+services:
+  app:
+    image: flaskazure:latest
+    ports:
+      - "5000:5000"
+    networks:
+      app_net:
+         ipv4_address: 172.18.0.3
+    depends_on:
+      mysqldb:
+        condition: service_healthy
+  mysqldb:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: Asterisk123
+      MYSQL_DATABASE: contactsdb
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d/:ro
+    healthcheck:
+        test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+        timeout: 20s
+        retries: 10
+    networks:
+      app_net:
+         ipv4_address: 172.18.0.2
+
+networks:
+    app_net:
+      ipam:
+        driver: default
+        config:
+          - subnet: 172.18.0.0/24
+
+      
+
+
+
