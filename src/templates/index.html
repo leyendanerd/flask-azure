@@ -1,42 +1,41 @@
-    {% extends 'layout.html' %}
-    
-    {% block content %}
+{% extends 'layout.html' %}
 
-    {% with messages = get_flashed_messages() %}
+{% block content %}
 
-        {% if messages %}
-            {% for message in messages %}
-                {{message}}
-            {% endfor %}
-        {% endif %}
+<div class="row">
 
-    {% endwith %}
+    <div class="col-md-5">
+        {% include 'partials/message.html' %}
 
-    <form action="/new" method="POST">
+        {% include 'partials/contactform.html' %}
+    </div>
 
-        <input type="text" name="fullname" placeholder="Escribe tu nombre">
-        <input type="text" name="email" placeholder="Escribe tu email">
-        <input type="text" name="phone" placeholder="Escribe tu telefono">
+    <div class="col-md-7">
+        {% for contact in contacts %}
 
-        <button>Save</button>
-        <div>
-            {% for contact in contacts %}
-
-            <div>
-                <h5>{{contact.fullname}}</h5>
-                <div>
-                    <a href="{{ url_for('contacts.update', id=contact.id)}}">Update</a>
-                    <a href="{{ url_for('contacts.delete', id=contact.id)}}">Delete</a>
+        <div class="card mb-1 text-white bg-dark">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                     <h5>{{contact.fullname}}</h5>
+                     <div>
+                          <a href="{{ url_for('contacts.update', id=contact.id)}}"
+                          class="btn btn-dark btn-sm rounded-0">Update</a>
+                          <a href="{{ url_for('contacts.delete', id=contact.id)}}"
+                          class="btn btn-danger btn-sm rounded-0">Delete</a>
+                     </div>
                 </div>
-
-
-                 <p>{{contact.phone}}</p>
-                 <p>{{contact.email}}</p>
+           
+                <p>{{contact.phone}}</p>
+                <p>{{contact.email}}</p>
 
             </div>
-            {% endfor %}
+
 
         </div>
+        {% endfor %}
 
-    </form>
+
+
+    </div>
+
     {% endblock %}
