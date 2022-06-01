@@ -1,5 +1,5 @@
 from crypt import methods
-from flask import Blueprint, redirect, render_template, request
+from flask import Blueprint, redirect, render_template, request, flash
 from models.contacts import Contact
 from utils.db import db
 
@@ -7,7 +7,7 @@ contacts = Blueprint('contacts', __name__)
 
 
 @contacts.route('/')
-def home():
+def index():
     contacts = Contact.query.all()
     return render_template('index.html', contacts=contacts)
 
@@ -23,17 +23,37 @@ def add_contact():
     db.session.add(new_contact)
     db.session.commit()
 
+    flash("Contacto fue agregado!")
+
     return redirect('/')
 
 
-@contacts.route('/update')
-def update():
-    return "update a contact"
+@contacts.route('/update/<id>', methods=['POST', 'GET'])
+def update(id):
+    contact = Contact.query.get(id)
+    if request.method == 'POST':
+        contact.fullname = request.form["fullname"]
+        contact.email = request.form["email"]
+        contact.phone = request.form["phone"]
+
+        db.session.commit()
+
+        flash("Contacto fue actualizado!")
+
+        return redirect('/')
+
+    return render_template("update.html", contact=contact)
 
 
-@contacts.route('/delete')
-def delete():
-    return "delete a contact"
+@contacts.route('/delete/<id>')
+def delete(id):
+    contact = Contact.query.get(id)
+    db.session.delete(contact)
+    db.session.commit()
+
+    flash("Contacto fue eliminado!")
+
+    return redirect('/')
 
 
 @contacts.route("/about")
