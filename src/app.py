@@ -3,6 +3,8 @@ from flask import Flask
 from routes.contacts import contacts
 from flask_sqlalchemy import SQLAlchemy
 from config import DATABASE_CONNECTION 
+import unittest
+
 app = Flask(__name__)
 
 app.secret_key = "secret key"
