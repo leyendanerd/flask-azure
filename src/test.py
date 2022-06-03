@@ -1,4 +1,10 @@
+
+from flask import Flask
+
+app = Flask(__name__)
+
 from routes.contacts import contacts
-with contacts.test_client() as c:
+app.register_blueprint(contacts)
+
+with app.test_client() as c:
     response = c.get('/')
-    assert response.status_code == 200
