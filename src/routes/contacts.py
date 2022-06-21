@@ -13,7 +13,7 @@ def index():
 
 
 @contacts.route('/new', methods=['POST'])
-def add_contact():
+def add_contast():
     fullname = request.form['fullname']
     email = request.form['email']
     phone = request.form['phone']
