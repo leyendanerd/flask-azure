@@ -1,4 +1,5 @@
 import os
+import sentry_sdk
 from flask import Flask
 from routes.contacts import contacts
 from flask_sqlalchemy import SQLAlchemy
