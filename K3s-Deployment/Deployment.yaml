@@ -12,11 +12,11 @@ spec:
         app: flask
     spec:
       containers:
-      - name: flask
-        image: julio0619/flask-ci
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
-        ports:
-        - containerPort: 5000
+        - name: flask
+          image: julio0619/flask-ci
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 5000
