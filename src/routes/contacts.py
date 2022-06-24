@@ -9,7 +9,9 @@ contacts = Blueprint('contacts', __name__)
 @contacts.route('/')
 def index():
     contacts = Contact.query.all()
+    db.session.commit()
     return render_template('index.html', contacts=contacts)
+    
 
 
 @contacts.route('/new', methods=['POST'])
