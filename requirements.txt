@@ -4,7 +4,6 @@ flask_sqlalchemy
 mysql-connector
 pymysql
 mysqlclient
-psycopg2
 
 
 

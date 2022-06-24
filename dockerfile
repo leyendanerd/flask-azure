@@ -12,6 +12,7 @@ RUN apk update \
 
 RUN pip install mysqlclient
 RUN pip install python-dotenv
+RUN pip install psycopg2-binary
 
 RUN apk del build-deps
 
