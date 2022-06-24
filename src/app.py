@@ -3,7 +3,6 @@ from flask import Flask
 from routes.contacts import contacts
 from flask_sqlalchemy import SQLAlchemy
 from config import DATABASE_CONNECTION 
-import unittest
 import sentry_sdk
 from flask import Flask
 from sentry_sdk.integrations.flask import FlaskIntegration
