@@ -7,7 +7,7 @@ on:
       - master
 
 env:
-  SERVICE_NAME: julio0619/flask-azure
+  SERVICE_NAME: julio0619/flaskazure
       
 jobs:  
 
