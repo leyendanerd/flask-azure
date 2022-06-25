@@ -37,7 +37,6 @@ def update(id):
         contact.fullname = request.form["fullname"]
         contact.email = request.form["email"]
         contact.phone = request.form["phone"]
-
         db.session.commit()
 
         flash("Contacto fue actualizado!")
@@ -60,4 +59,6 @@ def delete(id):
 
 @contacts.route("/about")
 def about():
+    db.session.commit()
     return render_template('about.html')
+
