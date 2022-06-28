@@ -1,6 +1,10 @@
-from app import app
-with app.test_client() as c:
-    response = c.get('/')
+from api import app # Flask instance of the API
+
+def test_index_route():
+    response = app.test_client().get('/')
+
+    assert response.status_code == 200
+    assert response.data.decode('utf-8') == 'Testing, Flask!'
 
 
 
