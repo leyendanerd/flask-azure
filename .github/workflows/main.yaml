@@ -26,6 +26,13 @@ jobs:
         working-directory: src
         run: |
           python -m pip install --upgrade pip
+          pip install requirements.txt
+          pip install pytest
+
+      - name: Test with pytest
+        working-directory: src
+        run: |
+          pytest test_app.py
 
   build_dockerhub:
     name: Build application on dockerhub
