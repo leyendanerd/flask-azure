@@ -42,10 +42,10 @@ jobs:
           MYSQL_HOST: ${{ secrets.HOST_DEV_SQL }}
           MYSQL_DATABASE: ${{ secrets.DB_DEV_SQL }}
         run: |
-          MYSQL_USER= $MYSQL_USER 
-          MYSQL_PASSWORD= $MYSQL_PASSWORD
-          MYSQL_HOST= $MYSQL_HOST
-          MYSQL_DATABASE= $MYSQL_DATABASE
+          MYSQL_USER=$MYSQL_USER 
+          MYSQL_PASSWORD=$MYSQL_PASSWORD
+          MYSQL_HOST=$MYSQL_HOST
+          MYSQL_DATABASE=$MYSQL_DATABASE
           pytest test_app.py
 
   build_dockerhub:
