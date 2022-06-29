@@ -8,6 +8,10 @@ on:
 
 env:
   SERVICE_NAME: julio0619/flaskazure
+  MYSQL_USER: ${ secrets.user_dev_sql }
+  MYSQL_PASSWORD: ${ secrets.pass_dev_sql }
+  MYSQL_HOST: ${ secrets.host_dev_sql }
+  MYSQL_DATABASE: ${ secrets.db_dev_sql }
       
 jobs:  
 
@@ -33,6 +37,10 @@ jobs:
       - name: Test with pytest
         working-directory: src
         run: |
+          MYSQL_USER= ${ env.MYSQL_USER } 
+          MYSQL_PASSWORD= ${ env.MYSQL_PASSWORD }
+          MYSQL_HOST: ${ env.MYSQL_HOST }
+          MYSQL_DATABASE: ${ env.MYSQL_DATABASE }
           pytest test_app.py
 
   build_dockerhub:
