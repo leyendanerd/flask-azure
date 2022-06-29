@@ -5,6 +5,7 @@ mysql-connector
 pymysql
 mysqlclient
 python-dotenv
+psycopg2-binary
 
 
 
