@@ -2,7 +2,7 @@ FROM python:3.10-alpine
 
 WORKDIR /code
 
-COPY requirements.txt /requirements.txt
+COPY /src/requirements.txt /requirements.txt
 
 RUN python -m pip install --upgrade pip
 
