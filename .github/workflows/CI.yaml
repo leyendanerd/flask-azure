@@ -8,10 +8,10 @@ on:
 
 env:
   SERVICE_NAME: julio0619/flaskazure
-  MYSQL_USER: ${ secrets.USER_DEV_SQL }
-  MYSQL_PASSWORD: ${ secrets.PASS_DEV_SQL }
-  MYSQL_HOST: ${ secrets.HOST_DEV_SQL }
-  MYSQL_DATABASE: ${ secrets.DB_DEV_SQL }
+  MYSQL_USER: ${{ secrets.USER_DEV_SQL }}
+  MYSQL_PASSWORD: ${{ secrets.PASS_DEV_SQL }}
+  MYSQL_HOST: ${{ secrets.HOST_DEV_SQL }}
+  MYSQL_DATABASE: ${{ secrets.DB_DEV_SQL }}
       
 jobs:  
 
