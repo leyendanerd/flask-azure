@@ -37,10 +37,10 @@ jobs:
       - name: Test with pytest
         working-directory: src
         run: |
-          MYSQL_USER= ${ env.MYSQL_USER } 
-          MYSQL_PASSWORD= ${ env.MYSQL_PASSWORD }
-          MYSQL_HOST: ${ env.MYSQL_HOST }
-          MYSQL_DATABASE: ${ env.MYSQL_DATABASE }
+          MYSQL_USER= $MYSQL_USER 
+          MYSQL_PASSWORD= $MYSQL_PASSWORD
+          MYSQL_HOST: $MYSQL_HOST
+          MYSQL_DATABASE: $MYSQL_DATABASE
           pytest test_app.py
 
   build_dockerhub:
