@@ -74,6 +74,7 @@ jobs:
   
   analize_sonar:
     name: Build
+    needs: [run_tests]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
