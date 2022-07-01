@@ -2,9 +2,9 @@ name: python flask test CI
 
 on:
 
-  push:
+  pull_request:
     branches:
-      - master
+      - master 
 
 env:
   SERVICE_NAME: julio0619/flaskazure
@@ -43,10 +43,42 @@ jobs:
           MYSQL_DATABASE=$MYSQL_DATABASE
           pytest test_app.py
 
+  analyze:
+    name: Analyze CodeQL
+    needs: [run_tests]
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'python' ]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v2
+      with:
+        languages: ${{ matrix.language }}
+
+    - name: Autobuild
+      uses: github/codeql-action/autobuild@v2
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v2
+
   build_dockerhub:
     name: Build application on dockerhub
+    needs: [run_tests]
     runs-on: ubuntu-latest
-    needs: run_tests
+    environment: 
+      name: Development
+
     steps:
       -
         name: Set up QEMU
@@ -66,3 +98,25 @@ jobs:
         with:
           push: true
           tags: ${{ env.SERVICE_NAME }}
+
+  deploy_Develoment:
+    name: Deploy to env dev
+    needs: [build_dockerhub]
+    runs-on: ubuntu-latest
+    environment: 
+      name: Development
+      url: https://nsdevflask.duckdns.org
+
+    steps:
+      - name: Connecting to server via ssh
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: ${{ secrets.SSH_PORT_DEV }}
+          script_stop: true
+          script: |
+            cd /home
+            docker-compose -f flask.yaml pull
+            docker-compose -f flask.yaml up -d
