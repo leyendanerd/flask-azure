@@ -73,7 +73,7 @@ jobs:
       uses: github/codeql-action/analyze@v2
   
   analize_sonar:
-    name: Build
+    name: analize_sonar
     needs: [run_tests]
     runs-on: ubuntu-latest
     steps:
