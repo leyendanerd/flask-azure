@@ -84,6 +84,7 @@ jobs:
           fetch-depth: 0
       - name: run sonar  
         uses: sonarsource/sonarqube-scan-action@master
+      - name: run  
         run: |
           sonar-scanner \
           Dsonar.projectKey=flaskazure \
