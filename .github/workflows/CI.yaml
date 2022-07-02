@@ -12,6 +12,8 @@ env:
   MYSQL_PASSWORD: ${{ secrets.PASS_DEV_SQL }}
   MYSQL_HOST: ${{ secrets.HOST_DEV_SQL }}
   MYSQL_DATABASE: ${{ secrets.DB_DEV_SQL }}
+  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
       
 jobs:  
 
@@ -80,11 +82,15 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-          
+
       - uses: sonarsource/sonarqube-scan-action@master
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        run: |
+          sonar-scanner \
+          Dsonar.projectKey=flaskazure \
+          Dsonar.sources=. \
+          Dsonar.host.url=$SONAR_HOST_URL \
+          Dsonar.login=$SONAR_TOKEN
+
 
   build_dockerhub:
     name: Build application on dockerhub
