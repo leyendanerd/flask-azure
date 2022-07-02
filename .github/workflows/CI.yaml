@@ -81,10 +81,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 0
-      - name: run sonar  
-        uses: sonarsource/sonarqube-scan-action@master
-      - name: run  
+          fetch-depth: 0 
+
+      - uses: sonarsource/sonarqube-scan-action@master
+      - name: run sonar
         run: |
           sonar-scanner \
           Dsonar.projectKey=flaskazure \
