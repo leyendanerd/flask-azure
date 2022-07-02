@@ -12,8 +12,7 @@ env:
   MYSQL_PASSWORD: ${{ secrets.PASS_DEV_SQL }}
   MYSQL_HOST: ${{ secrets.HOST_DEV_SQL }}
   MYSQL_DATABASE: ${{ secrets.DB_DEV_SQL }}
-  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-  SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
       
 jobs:  
 
@@ -74,23 +73,17 @@ jobs:
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
   
-  analize_sonar:
-    name: analize_sonar
-    needs: [run_tests]
+  sonarqube:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0 
-
-      - uses: sonarsource/sonarqube-scan-action@master
-      - name: run sonar
-        run: |
-          sonar-scanner \
-          Dsonar.projectKey=flaskazure \
-          Dsonar.sources=. \
-          Dsonar.host.url=$SONAR_HOST_URL \
-          Dsonar.login=$SONAR_TOKEN
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: SonarQube Scan
+      uses: sonarsource/sonarqube-scan-action@master
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
   build_dockerhub:
     name: Build application on dockerhub
