@@ -114,24 +114,46 @@ jobs:
           push: true
           tags: ${{ env.SERVICE_NAME }}
 
-  deploy_Develoment:
-    name: Deploy to env dev
+#  deploy_Develoment:
+#    name: Deploy to env dev
+#    needs: [build_dockerhub]
+#    runs-on: ubuntu-latest
+#    environment: 
+#      name: Development
+#      url: https://nsdevflask.duckdns.org
+
+#    steps:
+#      - name: Connecting to server via ssh
+#        uses: appleboy/ssh-action@master
+#        with:
+#          host: ${{ secrets.SSH_HOST }}
+#          username: ${{ secrets.SSH_USERNAME }}
+#          password: ${{ secrets.SSH_PASSWORD }}
+#          port: ${{ secrets.SSH_PORT_DEV }}
+#          script_stop: true
+#          script: |
+#           cd /home
+#            docker-compose -f flask.yaml pull
+#            docker-compose -f flask.yaml up -d
+
+  deploy-to-cluster:
+    name: deploy to cluster
     needs: [build_dockerhub]
     runs-on: ubuntu-latest
     environment: 
       name: Development
       url: https://nsdevflask.duckdns.org
-
     steps:
-      - name: Connecting to server via ssh
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          password: ${{ secrets.SSH_PASSWORD }}
-          port: ${{ secrets.SSH_PORT_DEV }}
-          script_stop: true
-          script: |
-            cd /home
-            docker-compose -f flask.yaml pull
-            docker-compose -f flask.yaml up -d
+    - name: deploy to cluster
+      uses: steebchen/kubectl@master
+      env:
+        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+      with:
+        args: -n flaskazure set image --record deployment/flaskazure flaskazure=julio0619/flaskazure:latest
+    - name: verify deployment
+      uses: steebchen/kubectl@master
+      env:
+        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+        KUBECTL_VERSION: "1.20"
+      with:
+        args: '"rollout status deployment/my-app"'
