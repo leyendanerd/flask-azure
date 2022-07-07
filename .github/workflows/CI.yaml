@@ -154,4 +154,4 @@ jobs:
       with:
         config: ${{ secrets.KUBE_CONFIG_DATA }}
         version: v1.21.0 
-        command: rollout status deployment/flaskazure
+        command: rollout status deployment/flaskazure $NAMESPACE
