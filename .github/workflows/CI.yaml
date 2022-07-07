@@ -1,4 +1,4 @@
-name: python flask test CI
+name: python flask test CI/CD
 
 on:
 
@@ -8,6 +8,7 @@ on:
 
 env:
   SERVICE_NAME: julio0619/flaskazure
+  NAMESPACE: flaskazure
   MYSQL_USER: ${{ secrets.USER_DEV_SQL }}
   MYSQL_PASSWORD: ${{ secrets.PASS_DEV_SQL }}
   MYSQL_HOST: ${{ secrets.HOST_DEV_SQL }}
@@ -140,17 +141,22 @@ jobs:
     name: deploy to cluster
     needs: [build_dockerhub]
     runs-on: ubuntu-latest
+    environment: 
+      name: Development
+      url: https://nsflask.duckdns.org
 
     steps:
     - uses: actions/checkout@master
     - name: deploy to cluster
       uses: steebchen/kubectl@v2.0.0
-      with: # defaults to latest kubectl binary version
+      with: 
         config: ${{ secrets.KUBE_CONFIG_DATA }}
-        command: kubectl -n flaskazure set image deployment/flaskazure flaskazure=julio0619/flaskazure:latest
+        command: |
+          set image deployment/flaskazure flaskazure=julio0619/flaskazure:latest -n flaskazure
+          set image deployment/flaskazure flaskazure=julio0619/flaskazure -n flaskazure
     - name: verify deployment
       uses: steebchen/kubectl@v2.0.0
       with:
         config: ${{ secrets.KUBE_CONFIG_DATA }}
-        version: v1.21.0 # specify kubectl binary version explicitly
-        command: rollout status deployment/flaskazure
+        version: v1.21.0 
+        command: rollout status deployment/flaskazure -n flaskazure
