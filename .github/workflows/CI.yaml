@@ -8,6 +8,7 @@ on:
 
 env:
   SERVICE_NAME: julio0619/flaskazure
+  NAMESPACE: flaskazure
   MYSQL_USER: ${{ secrets.USER_DEV_SQL }}
   MYSQL_PASSWORD: ${{ secrets.PASS_DEV_SQL }}
   MYSQL_HOST: ${{ secrets.HOST_DEV_SQL }}
@@ -147,7 +148,7 @@ jobs:
       uses: steebchen/kubectl@v2.0.0
       with: 
         config: ${{ secrets.KUBE_CONFIG_DATA }}
-        command: -n flaskazure set image deployment/flaskazure flaskazure=julio0619/flaskazure:latest
+        command: set image deployment/flaskazure flaskazure=julio0619/flaskazure:latest -n $NAMESPACE
     - name: verify deployment
       uses: steebchen/kubectl@v2.0.0
       with:
