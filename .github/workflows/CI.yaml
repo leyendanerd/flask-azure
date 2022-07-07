@@ -1,4 +1,4 @@
-name: python flask test CI
+name: python flask test CI/CD
 
 on:
 
@@ -141,6 +141,9 @@ jobs:
     name: deploy to cluster
     needs: [build_dockerhub]
     runs-on: ubuntu-latest
+    environment: 
+      name: Development
+      url: https://nsflask.duckdns.org
 
     steps:
     - uses: actions/checkout@master
@@ -156,4 +159,4 @@ jobs:
       with:
         config: ${{ secrets.KUBE_CONFIG_DATA }}
         version: v1.21.0 
-        command: rollout status deployment/flaskazure
+        command: rollout status deployment/flaskazure -n flaskazure
