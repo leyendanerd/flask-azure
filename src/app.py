@@ -17,7 +17,7 @@ sentry_sdk.init(
 
 app = Flask(__name__)
 
-app.secret_key = "secret key"
+app.secret_key = "Asterisk.123"
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_CONNECTION 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 #app.config['SQLALCHEMY_MAX_OVERFLOW'] = -1

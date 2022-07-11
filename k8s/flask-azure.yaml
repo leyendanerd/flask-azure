@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flaskazure
+  labels:
+    app-azure: flaskazure
+spec:
+  selector:
+    matchLabels:
+      app: flaskazure
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: flaskazure
+    spec:
+      containers:
+      - name: flaskazure
+        image: julio0619/flaskazure
+        env:
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: psqlsecret
+              key: MYSQL_USER
+
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: psqlsecret
+              key: MYSQL_PASSWORD
+
+        - name: MYSQL_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: psqlsecret
+              key: MYSQL_DATABASE
+
+        - name: MYSQL_HOST
+          valueFrom:
+            secretKeyRef:
+              name: psqlsecret
+              key: MYSQL_HOST
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8000
+      imagePullSecrets:
+      - name: regcred

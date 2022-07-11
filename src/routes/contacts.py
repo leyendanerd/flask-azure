@@ -10,6 +10,7 @@ contacts = Blueprint('contacts', __name__)
 def index():
     contacts = Contact.query.all()
     db.session.commit()
+
     return render_template('index.html', contacts=contacts)
     
 
@@ -24,6 +25,7 @@ def add_contact():
 
     db.session.add(new_contact)
     db.session.commit()
+
 
     flash("Contacto fue agregado!")
 
@@ -50,7 +52,6 @@ def update(id):
 def delete(id):
     contact = Contact.query.get(id)
     db.session.delete(contact)
-    db.session.commit()
 
     flash("Contacto fue eliminado!")
 
@@ -61,4 +62,7 @@ def delete(id):
 def about():
     db.session.commit()
     return render_template('about.html')
+
+
+
 
