@@ -1,12 +1,12 @@
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: counter
+  name: flaskazure
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: counter
+    name: flaskazure
   minReplicas: 2
   maxReplicas: 5
   metrics:
