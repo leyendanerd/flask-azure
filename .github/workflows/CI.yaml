@@ -38,34 +38,6 @@ jobs:
           pip install --upgrade 'sentry-sdk[flask]'
           pip install pytest
 
-  analyze:
-    name: Analyze CodeQL
-    needs: [run_tests]
-    runs-on: self-hosted
-    permissions:
-      actions: read
-      contents: read
-      security-events: write
-
-    strategy:
-      fail-fast: false
-      matrix:
-        language: [ 'python' ]
-
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v2
-      with:
-        languages: ${{ matrix.language }}
-
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v2
-
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
   
   sonarqube:
     name: SonarQube Scan
