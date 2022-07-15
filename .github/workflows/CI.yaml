@@ -2,6 +2,10 @@ name: python flask test CI/CD
 
 on:
 
+  push:
+    branches:
+      - master
+      
   pull_request:
     branches:
       - master 
