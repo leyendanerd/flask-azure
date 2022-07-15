@@ -3,7 +3,6 @@ Blueprint
 flask_sqlalchemy
 mysql-connector 
 pymysql
-mysqlclient
 python-dotenv
 psycopg2-binary
 
