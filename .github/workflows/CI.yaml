@@ -83,7 +83,6 @@ jobs:
 
   build_dockerhub:
     name: Build application on dockerhub
-    needs: [sonarqube]
     runs-on: self-hosted
     environment: 
       name: Development
