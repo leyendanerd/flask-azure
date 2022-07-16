@@ -8,4 +8,4 @@ password = os.environ['MYSQL_PASSWORD']
 host = os.environ['MYSQL_HOST']
 database = os.environ['MYSQL_DATABASE']
 
-DATABASE_CONNECTION = f'postgres://{user}:{password}@{host}/{database}'
+DATABASE_CONNECTION = f'postgresql://{user}:{password}@{host}/{database}'
