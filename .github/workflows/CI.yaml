@@ -71,7 +71,7 @@ jobs:
   
   sonarqube:
     name: SonarQube Scan
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [run_tests]
     steps:
     - uses: actions/checkout@v2
