@@ -21,7 +21,7 @@ env:
 jobs:  
 
   run_tests:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     strategy:
       matrix:
         python-version: [3.8, 3.9]
@@ -80,7 +80,7 @@ jobs:
   
   sonarqube:
     name: SonarQube Scan
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [run_tests]
     steps:
     - uses: actions/checkout@v2
@@ -144,7 +144,7 @@ jobs:
   deploy-to-cluster:
     name: deploy to cluster
     needs: [build_dockerhub]
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     environment: 
       name: Development
       url: https://nsflask.duckdns.org
