@@ -163,5 +163,5 @@ jobs:
       uses: steebchen/kubectl@v2.0.0
       with:
         config: ${{ secrets.KUBE_CONFIG_DATA }}
-        version: v1.21.0 
+        version: v1.24.3 
         command: rollout status deployment/flaskazure -n flaskazure
