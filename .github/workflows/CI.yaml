@@ -16,7 +16,6 @@ env:
   MYSQL_PASSWORD: ${{ secrets.PASS_DEV_SQL }}
   MYSQL_HOST: ${{ secrets.HOST_DEV_SQL }}
   MYSQL_DATABASE: ${{ secrets.DB_DEV_SQL }}
-
       
 jobs:  
 
