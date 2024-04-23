@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: flaskazure
-        image: julio0619/flaskazure
+        image: julio0619/flask-app
         resources:
           limits:
             memory: "128Mi"
