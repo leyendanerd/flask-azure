@@ -78,23 +78,9 @@ jobs:
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
   
-  sonarqube:
-    name: SonarQube Scan
-    runs-on: self-hosted
-    needs: [run_tests]
-    steps:
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
-    - name: SonarQube Scan
-      uses: sonarsource/sonarqube-scan-action@master
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
   build_dockerhub:
     name: Build application on dockerhub
-    needs: [sonarqube]
     runs-on: self-hosted
     environment: 
       name: Development
@@ -115,49 +101,3 @@ jobs:
         with:
           push: true
           tags: ${{ env.SERVICE_NAME }}
-
-#  deploy_Develoment:
-#    name: Deploy to env dev
-#    needs: [build_dockerhub]
-#    runs-on: ubuntu-latest
-#    environment: 
-#      name: Development
-#      url: https://nsdevflask.duckdns.org
-
-#    steps:
-#      - name: Connecting to server via ssh
-#        uses: appleboy/ssh-action@master
-#        with:
-#          host: ${{ secrets.SSH_HOST }}
-#          username: ${{ secrets.SSH_USERNAME }}
-#          password: ${{ secrets.SSH_PASSWORD }}
-#          port: ${{ secrets.SSH_PORT_DEV }}
-#          script_stop: true
-#          script: |
-#           cd /home
-#            docker-compose -f flask.yaml pull
-#            docker-compose -f flask.yaml up -d
-
-  deploy-to-cluster:
-    name: deploy to cluster
-    needs: [build_dockerhub]
-    runs-on: self-hosted
-    environment: 
-      name: Development
-      url: https://nsflask.duckdns.org
-
-    steps:
-    - uses: actions/checkout@master
-    - name: deploy to cluster
-      uses: steebchen/kubectl@v2.0.0
-      with: 
-        config: ${{ secrets.KUBE_CONFIG_DATA }}
-        command: |
-          set image deployment/flaskazure flaskazure=julio0619/flaskazure:latest -n flaskazure
-          set image deployment/flaskazure flaskazure=julio0619/flaskazure -n flaskazure
-    - name: verify deployment
-      uses: steebchen/kubectl@v2.0.0
-      with:
-        config: ${{ secrets.KUBE_CONFIG_DATA }}
-        version: v1.24.3 
-        command: rollout status deployment/flaskazure -n flaskazure
