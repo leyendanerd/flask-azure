@@ -20,7 +20,7 @@ env:
 jobs:  
 
   run_tests:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: [3.8, 3.9]
@@ -81,7 +81,7 @@ jobs:
 
   build_dockerhub:
     name: Build application on dockerhub
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     environment: 
       name: Development
 
